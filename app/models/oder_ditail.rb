@@ -1,0 +1,2 @@
+class OderDitail < ApplicationRecord
+end
