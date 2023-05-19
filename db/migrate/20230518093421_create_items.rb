@@ -7,6 +7,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.boolean :is_active, default: true, null: false
       t.integer :genre_id, null: false
       t.string :image_id
+       
       
       t.timestamps
     end
