@@ -1,14 +1,28 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/"><span>Nagano Cafe</span></a>
+
+    <% if customer_signed_in? %>
+      ようこそ、<%= current_customer.last_name %><%= current_customer.first_name %>様</p>
+    <% elsif admin_signed_in? %>
+     管理者ログイン
+    <% else %>
+     ようこそ、ゲスト様
+    <% end %>
+
+
+      <a class="navbar-brand" href="/"><span>Nagano Cake</span></a>
       <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+        <% if customer_signed_in? %>
+          <li class="mr-3">
+          </li>
         <div class="navbar-nav">
           
-          
+         
         </div>
       </div>
     </div>
-    
+
   </nav>
 </header>
