@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
 
 namespace :admin do
-
-  resources :customers, only:[:index, :show, :edit, :update]
-  resources :orders, only:[:index, :show]
+    root to: 'homes#top'
+    resources :items, only:[:index, :new, :create, :show, :edit, :update]
+    resources :customers, only:[:index, :show, :edit, :update]
+    resources :orders, only:[:index, :show]
 
 end
 
   scope module: :public do
+    resources :items, only: [:index, :show]
     root to: 'homes#top'
+    get '/about' => 'homes#about'
   end
 
   # 顧客用
@@ -23,4 +26,5 @@ end
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+
 end
