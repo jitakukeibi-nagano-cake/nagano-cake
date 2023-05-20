@@ -10,19 +10,55 @@
      ようこそ、ゲスト様
     <% end %>
 
-
       <a class="navbar-brand" href="/"><span>Nagano Cake</span></a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
         <% if customer_signed_in? %>
-          <li class="mr-3">
+
+          <li>
+            <%= link_to "マイページ" %>
           </li>
-        <div class="navbar-nav">
-          
-         
+          <li>
+            <%= link_to "商品一覧" %>
+          </li>
+          <li>
+            <%= link_to "カート" %>
+          </li>
+          <li>
+            <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+          </li>
+
+        <% elsif admin_signed_in? %>
+          <li>
+            <%= link_to "商品一覧" %>
+          </li>
+          <li>
+            <%= link_to "会員一覧" %>
+          </li>
+          <li>
+            <%= link_to "注文履歴一覧" %>
+          </li>
+          <li>
+            <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+          </li>
+
+        <% else %>
+          <li>
+            <%= link_to "About", about_path %>
+          </li>
+          <li>
+            <%= link_to "商品一覧" %>
+          </li>
+          <li>
+            <%= link_to "新規登録", new_customer_registration_path %>
+          </li>
+          <li>
+            <%= link_to "ログイン", new_customer_session_path %>
+          </li>
+        <% end %>
+          </ul>
         </div>
       </div>
     </div>
-
   </nav>
 </header>
