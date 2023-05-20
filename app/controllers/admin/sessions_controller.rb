@@ -3,6 +3,7 @@
 class Admin::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   
+
   # ゴリ作成
   # seed.rbは後日作成(パスワードとメールアドレスの初期設定)
   
@@ -14,6 +15,7 @@ class Admin::SessionsController < Devise::SessionsController
     new_admin_session_path
   end  
 　
+
   # GET /resource/sign_in
   # def new
   #   super
