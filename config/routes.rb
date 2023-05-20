@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 # 顧客用
 # URL /customers/sign_in ...
+scope module: :public do
+    resources :items, only: [:index, :show]
+  end
+
 devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
