@@ -3,7 +3,7 @@
     <div class="container">
 
     <% if customer_signed_in? %>
-      ようこそ、<%= current_customer.last_name %><%= current_customer.first_name %>様</p>
+      ようこそ、<%= current_customer.first_name %><%= current_customer.last_name %>様</p>
     <% elsif admin_signed_in? %>
      管理者ログイン
     <% else %>
