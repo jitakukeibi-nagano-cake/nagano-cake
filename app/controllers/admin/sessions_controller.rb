@@ -3,14 +3,18 @@
 class Admin::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   
-  # seed.rbで管理者のログイン時のメールアドレスとパスワードを初期設定する。
+
+  # ゴリ作成
+  # seed.rbは後日作成(パスワードとメールアドレスの初期設定)
+  
   def after_sign_in_path_for(resource)
     admin_root_path
-  end
+  end  
   
   def after_sign_out_path_for(resource)
     new_admin_session_path
-  end
+  end  
+　
 
   # GET /resource/sign_in
   # def new
