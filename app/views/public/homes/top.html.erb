@@ -1,1 +1,58 @@
-<h1>top画面</h1>
+<%= render 'layouts/header' %>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-3">
+      <table class="tabel table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ケーキ</td></tr>
+          <tr><td>クッキー</td></tr>
+          <tr><td>プリン</td></tr>
+          <tr><td>焼き菓子</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-9">
+      <div class="greeting-image">
+        <p class="greeting text-center ">
+           ようこそ、ながのCAKEへ！<br>
+           このサイトは、ケーキ販売のECサイトになります。<br>
+           会員でない方も商品の閲覧はできますが、<br>
+           購入には会員登録が必要になります。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-8 my-md-3">
+      <table class="new-tabel">
+        <thead>
+          <tr>
+            <th><strong>新着商品</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
+            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
+            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
+            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
+          </tr>
+          <tr>
+            <td>商品名</td><td>商品名</td><td>商品名</td><td>商品名</td>
+          </tr>
+          <tr>
+            <td>¥0,000</td><td>¥0,000</td><td>¥0,000</td><td>¥0,000</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="to-all-items text-right">全ての商品を見る</div>
+    </div>
+
+  </div>
+</div>

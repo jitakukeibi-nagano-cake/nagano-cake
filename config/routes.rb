@@ -10,6 +10,7 @@ end
   scope module: :public do
     resources :items, only: [:index, :show]
     root to: 'homes#top'
+    get '/about' => 'homes#about'
   end
 
   # 顧客用
