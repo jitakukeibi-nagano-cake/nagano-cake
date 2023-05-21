@@ -21,7 +21,7 @@
           <td><%= image_tag cart_item.item.image, size: "200x100" %> <%= cart_item.item.name %></td>
           <td><%= cart_item.item.with_tax_price %></td>
           <td>
-            <%= form_with model: @cart_item, url: '/cart_items/:id',method: :pat do |f| %>
+            <%= form_with model: @cart_item, url: '/cart_items/:id',method: :patch do |f| %>
               <%= f.select :quantity, *[1..10], { selected: cart_item.quantity }, { class: "form-control", required: true } %>
               <%= f.submit "変更", class:"btn btn-sm btn-success" %>
             <% end %>
