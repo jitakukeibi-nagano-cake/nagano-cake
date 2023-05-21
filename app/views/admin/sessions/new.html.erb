@@ -1,35 +1,39 @@
 <!--ゴリ作成-->
 <!--bootstrapでレイアウト作成する-->
 <div class="container">
-  <div class="row my-3">
-    <div class="col-sm-8 px-sm-0 offset-sm-1">
-<h2>管理者ログイン</h2>
+    <div class="row my-3">
+        <div class="col-sm-8 px-sm-0 offset-sm-1">
+        <h2>管理者ログイン</h2>
+        </div>
     </div>
-  </div>
-
-   <div class="mx-auto col-8">
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="row">
-     <div class="col-sm-3 px-sm-0 offset-sm-1">
-    <%= f.label :"メールアドレス" %><br />
+    
+    <div class="mx-auto col-8">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="row">
+        <div class="col-sm-3 px-sm-0 offset-sm-1">
+        <%= f.label :"メールアドレス" %><br />
+        </div>
+        <div class="col-sm-3 px-sm-0">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", :size=>"40", placeholder: "sample@example.com" %>
+        </div>
+     </div>
+    
+    <div class="row">
+    <div class="col-sm-3 px-sm-0 offset-sm-1">
+        <%= f.label :"パスワード" %><br />
     </div>
-    <div class="col-sm-3 px-sm-0">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-  </div>
-
-   <div class="row">
-     <div class="col-sm-3 px-sm-0 offset-sm-1">
-    <%= f.label :"パスワード" %><br />
+        <div class="col-sm-3 px-sm-0">
+        <%= f.password_field :password, autocomplete: "current-password", :size=>"40" %>
+        </div>
     </div>
-     <div class="col-sm-3 px-sm-0">
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
+      
+    <div class="row">
+        <div class="col-sm-5 px-sm-0 offset-sm-4">
+            <%= f.submit "ログイン",  class:"btn btn-primary px-4 mt-3 mb-5" %>
+        </div>
+    </div>
+    <% end %>
+    </div>
+</div>
 
 <%= render "admin/shared/links" %>
