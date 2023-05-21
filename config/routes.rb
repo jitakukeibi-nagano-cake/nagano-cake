@@ -10,6 +10,10 @@ end
 
   scope module: :public do
     resources :items, only: [:index, :show]
+    resources :customers, only: [:show, :update, :edit]
+   
+    get "quit" => "customers#quit", as: "quit_customer"
+    patch "out" => "customers#out", as: "out_customer"
     root to: 'homes#top'
     get '/about' => 'homes#about'
   end
