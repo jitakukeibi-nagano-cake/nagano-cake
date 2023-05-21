@@ -16,10 +16,10 @@
         <% if customer_signed_in? %>
 
           <li>
-            <%= link_to "マイページ" %>
+            <%= link_to "マイページ", customer_path %>
           </li>
           <li>
-            <%= link_to "商品一覧" %>
+            <%= link_to "商品一覧" items_path %>
           </li>
           <li>
             <%= link_to "カート" %>
@@ -30,7 +30,7 @@
 
         <% elsif admin_signed_in? %>
           <li>
-            <%= link_to "商品一覧" %>
+            <%= link_to "商品一覧" items_path %>
           </li>
           <li>
             <%= link_to "会員一覧" %>
