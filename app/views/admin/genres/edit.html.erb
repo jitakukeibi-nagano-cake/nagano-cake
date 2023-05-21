@@ -1,0 +1,22 @@
+<!--ゴリ作成-->
+
+<div class="container my-5">
+    <h4><strong class="table-active">ジャンル編集</strong></h4>
+    <%= form_with model: @genre,url:admin_genre_path, method: :patch do |f| %>
+    <table class = "mt-4" >
+        <tbody>
+            <tr>
+                <td>
+                <label for = "genre_name" >ジャンル名</label>
+                </td>
+                <td>
+                <%= f.text_field:name %>
+                </td>
+                <td>
+                <%= f.submit "変更を保存", class:"btn btn-success" %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <% end %>
+</div>
