@@ -3,6 +3,31 @@
     <div class="col-md-8 ">
       <h3>会員一覧</h3>
     </div>
-    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>会員ID</th>
+          <th>氏名</th>
+          <th>メールアドレス</th>
+          <th>ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.id %></td>
+          <td><%= link_to customer.first_name + customer.last_name, admin_customer_path(customer) %></td>
+          <td><%= customer.email %></td>
+          <td>
+            <% if customer.is_deleted %>
+              <span class="text-success font-weight-bold">退会</span>
+            <% else %>
+              <span class="text-secondary font-weight-bold">有効</span>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+        <%= paginate @customers %>
+    </table>
   </div>
 </div>
