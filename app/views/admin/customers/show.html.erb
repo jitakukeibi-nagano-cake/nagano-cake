@@ -42,16 +42,15 @@
         </tr>
       </tbody>
     </table>
-    
+
     <table class="table table-borderless text-center">
       <tr>
         <td></td>
         <td>
           <%= link_to "編集する", edit_admin_customer_path(@customers.id), class: "btn btn-success" %>
-          <%= link_to "注文履歴一覧を見る", class: "btn btn-secondary" 
+          <%= link_to "注文履歴一覧を見る", admin_orders_path, class: "btn btn-secondary" %>
         </td>
       </tr>
     </table>
-    
   </div>
 </div>
