@@ -5,11 +5,16 @@ namespace :admin do
     resources :items, only:[:index, :new, :create, :show, :edit, :update]
     resources :customers, only:[:index, :show, :edit, :update]
     resources :orders, only:[:index, :show]
+    resources :genres, only:[:index, :edit, :create, :update]
 
 end
 
   scope module: :public do
     resources :items, only: [:index, :show]
+    resources :customers, only: [:show, :update, :edit]
+   
+    get "quit" => "customers#quit", as: "quit_customer"
+    patch "out" => "customers#out", as: "out_customer"
     root to: 'homes#top'
     get '/about' => 'homes#about'
   end
