@@ -10,6 +10,12 @@ end
 
   scope module: :public do
     resources :items, only: [:index, :show]
+    resources :cart_items, only: [:index, :create, :destroy] do
+      collection do
+        delete 'destroy_all'
+      end
+    end
+
     root to: 'homes#top'
     get '/about' => 'homes#about'
   end
