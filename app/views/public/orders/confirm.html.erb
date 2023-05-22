@@ -1,2 +1,53 @@
-<h1>Orders#confirm</h1>
-<p>Find me in app/views/orders/confirm.html.erb</p>
+<div class="container">
+  <div class="row my-3"><div class="col-sm-10 offset-sm-1"><h2>注文確認画面</h2></div></div>
+  <div class="row">
+    <div class="col-sm-7 offset-sm-1">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="table-active" style="width:50%">商品名</th>
+            <th class="table-active" style="width:20%">単価(税込み)</th>
+            <th class="table-active" style="width:15%">数量</th>
+            <th class="table-active" style="width:15%">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @total_amount = 0 %>
+          <% @cart_items.each do |cart_item| %>
+            <tr>
+              <td class="align-middle" style="word-break:break-all"><%= attachment_image_tag cart_item.item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %><%= cart_item.item.name %></td>
+              <td class="align-middle"><%= change_price_excluding_tax(cart_item.item.price_excluding_tax).to_s(:delimited) %></td>
+              <td class="align-middle"><%= cart_item.amount %></td>
+              <td class="align-middle"><%= (amount = change_price_excluding_tax(cart_item.item.price_excluding_tax * cart_item.amount)).to_s(:delimited) %></td>
+            </tr>
+            <% @total_amount += amount %>
+          <% end %>
+        </tbody>
+      </table>
+
+      <table class="table table-borderless">
+        <tr><th>支払い方法</th><td><%= @order.payment_option %></td></tr>
+        <tr><th>お届け先</th><td><%= "〒#{@order.shipping_postcode} #{@order.shipping_address} #{@order.shipping_name}" %></td></tr>
+      </table>
+    </div>
+    <div class="col-sm-3">
+      <table class="table table-bordered">
+        <tr><th class="table-active" style="width:50%">送料</th><td>800</td></tr>
+        <tr><th class="table-active" style="width:50%">商品合計</th><td><%= @total_amount.to_s(:delimited) %></td></tr>
+        <tr><th class="table-active" style="width:50%">請求合計</th><td><%= (@total_billing_amount = 800 + @total_amount).to_s(:delimited) %></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 px-sm-0 mx-auto">
+      <%= form_with model: @order,  local:true do |f| %>
+        <%= f.hidden_field :shipping_postcode, :value => @order.shipping_postcode %>
+        <%= f.hidden_field :shipping_address, :value => @order.shipping_address %>
+        <%= f.hidden_field :shipping_name, :value => @order.shipping_name %>
+        <%= f.hidden_field :total_payment, :value => @total_billing_amount %>
+        <%= f.hidden_field :payment_option, :value => @order.payment_option %>
+        <div class="text-center mb-3"><%= f.submit "注文を確定する", class: "btn btn-success" %></div>
+      <% end %>
+    </div>
+  </div>
+</div>

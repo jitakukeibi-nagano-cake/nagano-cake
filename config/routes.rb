@@ -24,10 +24,14 @@ end
 
   scope module: :public do
     resources :items, only: [:index, :show]
-    resource :customers, only: [:show, :update, :edit]
-   
+    resource :customers, only: [:show, :update]
+    get "edit" => "customers#edit", as: "edit_customers"
     get "quit" => "customers#quit", as: "quit_customer"
     patch "out" => "customers#out", as: "out_customer"
+    resources :orders, only:[:new,:create,:index,:show]
+    get '/orders/confirm' => 'orders#confirm'
+    post '/orders/confirm' => 'orders#confirm'
+    get '/orders/thanks' => 'orders#thanks'
     root to: 'homes#top'
     get '/about' => 'homes#about'
   end

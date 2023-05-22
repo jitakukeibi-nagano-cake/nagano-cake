@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="mt-5 col-md-7">
+        <span class="col-md-5 offset-md-5"><%= attachment_image_tag @item, :image, format: 'jpeg', fallback: 'no_image.jpg', size:'300x200'%></span>
+    </div>
+    <div class="mt-5 col-md-5">
+        <p>商品名:<span class="h2 ml-2"><%= @item.name %></span></p>
+        <p>商品説明:</p>
+        <p><%= @item.introduction %></p>
+
+        <p>税込価格（税抜価格）<strong class="h5"><%= tax_price(@item.price).to_s(:delimited) %>円</strong>(<%= @item.price.to_s(:delimited) %>円)</p>
+
+        <%= form_with model: @cart_item, url: customer_cart_items_path, local: true do |f| %>
+          <%= f.hidden_field :item_id, value: @item.id %>
+          <%= f.select :quantity, options_for_select((1..10).to_a), include_blank: "個数選択", id: "select-quantity" %>
+          <%= f.submit "カートに入れる", class: "btn btn-success ml-3" %>
+        <% end %>
+    </div>
+  </div>
+</div>
