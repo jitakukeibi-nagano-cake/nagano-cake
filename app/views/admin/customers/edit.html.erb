@@ -7,52 +7,52 @@
     <table class="table table-borderless">
       <tbody>
         <tr>
-         <th class="table-active">会員ID</th>
+         <td>会員ID</td>
          <td><%= customers.id %></td>
         </tr>
         <tr>
-          <th class="table-active">氏名</th>
-          <td><%= @customers.first_name %><%= @customers.last_name %></td>
+          <td>氏名</td>
+          <td><%= f.text_field :first_name, class: 'form-control' %></td>
+          <td><%= f.text_field :last_name, class: 'form-control' %></td>
         </tr>
         <tr>
-          <th class="table-active">フリガナ</th>
-          <td><%= @customers.first_name_kana %><%= @customers.last_name_kana %></td>
+          <td>フリガナ</td>
+          <td><%= f.text_field :first_name_kana, class: 'form-control' %></td>
+          <td><%= f.text_field :last_name_kana, class: 'form-control' %></td>
         </tr>
         <tr>
-          <th class="table-active">郵便番号</th>
-          <td><%= @customers.postcode %></td>
+          <td>郵便番号</td>
+          <td><%= f.text_field :postcode, class: 'form-control' %></td>
         </tr>
         <tr>
-          <th class="table-active">住所</th>
-          <td><%= @customers.address %></td>
+          <td>住所</td>
+          <td><%= f.text_field :address, class: 'form-control' %></td>
         </tr>
         <tr>
-          <th class="table-active">電話番号</th>
-          <td><%= @customers.phone_number %></td>
+          <td>電話番号</td>
+          <td><%= f.text_field :phone_number, class: 'form-control' %></td>
         </tr>
         <tr>
-          <th class="table-active">メールアドレス</th>
-          <td><%= @customers.email %></td>
+          <td>メールアドレス</td>
+          <td><%= f.text_field :email, class: 'form-control' %></td>
         </tr>
         <tr>
-          <th class="table-active">会員ステータス</th>
-          <% if @customers.is_deleted %>
-            <td><p class="text-success font-weight-bold">有効</p></td>
-          <% else %>
-            <td><p class="text-success font-weight-bold">退会</p></td>
+          <td>会員ステータス</td>
+          <td>
+            <%= f.radio_button :is_deleted, true %>
+            <%= f.label :is_deleted, "有効" %>&emsp;
+            <%= f.radio_button :is_deleted, false %>
+            <%= f.label :is_deleted, "無効" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.submit "変更を保存", class: 'btn btn-success' %>
+          </td>
         </tr>
       </tbody>
     </table>
-
-    <table class="table table-borderless text-center">
-      <tr>
-        <td></td>
-        <td>
-          <%= link_to "編集する", edit_admin_customer_path(@customers.id), class: "btn btn-success" %>
-          <%= link_to "注文履歴一覧を見る", admin_root_path, class: "btn btn-secondary" %>
-        </td>
-      </tr>
-    </table>
+    <% end %>
     </div>
   </div>
 </div>
