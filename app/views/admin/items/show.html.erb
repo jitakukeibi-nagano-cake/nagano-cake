@@ -1,0 +1,51 @@
+<!--ゴリ作成-->
+<!--商品詳細画面-->
+
+<div class = "container">
+    <div class = "text-center mb-5">
+        <h4 class="table-active">商品詳細</h4>
+    </div>
+    <div class = "row">
+        <div class = "col-xs-3 col-md-5">
+            <div><%= image_tag @item.get_image(300,300) %></div>
+        </div>
+        <div class = "col-xs-3 col-md-7">
+            <table class = "table">
+                <tr>
+                    <th>商品名</th>
+                    <th><%= @item.name %></th>
+                </tr>
+                
+                <tr>
+                    <th>商品説明</th>
+                    <th><%= @item.introduction %></th>
+                </tr>
+                
+                <tr>
+                    <th>ジャンル</th>
+                    <th><%= @item.genre.name %></th>
+                </tr>
+                
+                <tr>
+                    <th>税込価格(税抜価格)</th>
+                    <th><%= ((@item.price_without_tax * 1.1).floor).to_s(:delimited, delimiter: ',') %> (<%= @item.price_without_tax.to_s(:delimited, delimiter: ',')%>)円</th>
+                </tr>
+                
+                <tr>
+                    <th>販売ステータス</th>
+                    <th>
+                        <%= if @item.is_active == true %>
+                        "販売中"
+                        <% else %>
+                        "販売停止中"
+                        <% end %>
+                    </th>
+                </tr>
+                
+            </table>
+            <div class = "float-center mb-4">
+                <%= link_to "編集する" edit_admin_item_path(@item.id), class:"btn btn-success" %>
+            </div>
+        </div>
+    </div>
+</div>
