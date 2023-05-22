@@ -2,13 +2,13 @@
   <div class="row pt-5">
     <div class="col-md-8 ">
       <h3><%= @customers.first_name %><%= @customers.last_name %>様の会員情報編集</h3>
-      <%= from_with model: @customers, method: :patch, url: admin_customer_path(@customers) do |f| %>
+      <%= form_with model: @customers, method: :patch, url: admin_customer_path(@customers) do |f| %>
       <!--更新した情報を詳細ページに送る-->
     <table class="table table-borderless">
       <tbody>
         <tr>
          <td>会員ID</td>
-         <td><%= customers.id %></td>
+         <td><%= @customers.id %></td>
         </tr>
         <tr>
           <td>氏名</td>
