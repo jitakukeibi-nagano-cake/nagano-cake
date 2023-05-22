@@ -25,7 +25,7 @@ end
   scope module: :public do
     resources :items, only: [:index, :show]
     resource :customers, only: [:show, :update, :edit]
-
+    resources :delivery_addresses, only: [:index, :edit, :create, :update, :destroy]
     get "quit" => "customers#quit", as: "quit_customer"
     patch "out" => "customers#out", as: "out_customer"
     root to: 'homes#top'
