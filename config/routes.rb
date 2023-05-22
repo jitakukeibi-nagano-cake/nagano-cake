@@ -24,7 +24,7 @@ end
 
   scope module: :public do
     resources :items, only: [:index, :show]
-    resources :customers, only: [:show, :update, :edit]
+    resource :customers, only: [:show, :update, :edit]
    
     get "quit" => "customers#quit", as: "quit_customer"
     patch "out" => "customers#out", as: "out_customer"
