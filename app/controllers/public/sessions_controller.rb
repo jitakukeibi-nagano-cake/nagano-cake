@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :reject_customer, only: [:create]
+  
+  private
+
+  def reject_customer
+    @customer = Customer.find_by(email: params[:customer][:email])
+    if @customer
+      if @customer.valid_password?(params[:customer][:password]) && (@customer.active_for_authentication? == false)
+        flash[:alert] = "退会済のアカウントです。ご利用いただけません。"
+        redirect_to new_customer_session_path
+      end
+    end
+  end
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

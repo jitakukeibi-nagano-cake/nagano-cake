@@ -1,5 +1,6 @@
 class Public::OrdersController < ApplicationController
-  include Public::OrdersHelper
+  include Public::HomesHelper
+  
   before_action :authenticate_customer!
   
 
