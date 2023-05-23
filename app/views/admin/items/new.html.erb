@@ -1,0 +1,60 @@
+<!--ゴリ作成-->
+<!--商品新規登録画面-->
+
+<div class = "container">
+    <div class = "row" >
+        <div class = "col-md-8 mt-5 mx-auto" >
+            <h4><strong class="table-active">商品新規登録</strong</h4>
+        </div>
+        
+        <div class = "col-md-6 mx-auto" >
+            <%= form_with model: @item, url: admin_items_path do |f| %>
+            <table class = "table table borderless mt-3" >
+                <tbody>
+                    <tr>
+                        <td><%= f.label "商品画像" %></td>
+                        <td><%= f.file_field :image, accept: "image/*" %></td>
+                    </tr>
+                    <tr>
+                        <td><%= f.label "商品名" %></td>
+                        <td><%= f.text_field :name, class: "font-control", :placeholder => "商品名" %></td>
+                    </tr>
+                    <tr>
+                        <td><%= f.label "商品説明" %></td>
+                        <td><%= f.text_area :introduction, class: "form-control", :placeholder => "ここに説明文を記述します" %></td>
+                    </tr>
+                    <tr>
+                        <td><%= f.label "ジャンル" %></td>
+                        <td><%= f.collection_select :genre_id, Genre.all, :id, :name, :include_blank => "選択してください" %></td>
+                    </tr>
+                    <tr>
+                        <td><%= f.label "税抜価格" %></td>
+                        <td>
+                            <div class = "input-group" >
+                            <%= f.text_field :price, class: "form-control", :placeholder => "1000" %>
+                            <span class = "input-group-text">円</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><%= f.label "販売ステータス" %></td>
+                        <td>
+                            <%= f.radio_button :is_active, true %>
+                            <%= f.label :is_active, "販売中" %>
+                            <%= f.radio_button :is_active, false %>
+                            <%= f.label :is_active, "販売停止中" %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class = "row">
+                <div class = "col-md-6 mx-auto">
+                    <div class = "mb-5 mx-auto">
+                        <%= f.submit "新規登録", class: "btn btn-success" %>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>

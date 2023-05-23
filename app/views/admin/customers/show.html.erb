@@ -7,7 +7,7 @@
       <tbody>
         <tr>
          <th class="table-active">会員ID</th>
-         <td><%= customers.id %></td>
+         <td><%= @customers.id %></td>
         </tr>
         <tr>
           <th class="table-active">氏名</th>
@@ -39,6 +39,7 @@
             <td><p class="text-success font-weight-bold">有効</p></td>
           <% else %>
             <td><p class="text-success font-weight-bold">退会</p></td>
+          <% end %>
         </tr>
       </tbody>
     </table>

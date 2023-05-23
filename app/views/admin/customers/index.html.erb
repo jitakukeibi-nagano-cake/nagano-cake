@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row pt-5">
-    <div class="col-md-8 ">
+    <div class="col-md-8">
       <h3>会員一覧</h3>
     </div>
     <table class="table">
@@ -20,14 +20,15 @@
           <td><%= customer.email %></td>
           <td>
             <% if customer.is_deleted %>
-              <span class="text-success font-weight-bold">退会</span>
+              <span class="text-success font-weight-bold">有効</span>
             <% else %>
-              <span class="text-secondary font-weight-bold">有効</span>
+              <span class="text-secondary font-weight-bold">退会</span>
             <% end %>
           </td>
         </tr>
+        <% end %>
       </tbody>
-        <%= paginate @customer %>customers
+        <%= paginate @customers %>
     </table>
   </div>
 </div>
