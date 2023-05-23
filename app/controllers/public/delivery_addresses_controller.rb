@@ -1,4 +1,5 @@
 class Public::DeliveryAddressesController < ApplicationController
+  before_action :authenticate_customer!
 
   def create
     @customer = current_customer
