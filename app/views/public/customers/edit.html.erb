@@ -3,7 +3,7 @@
   <h2><mark>会員情報編集</mark></h2>
 
   <div class="customer-edit row mt-5" style="margin-left: 0; margin-right: 0; padding-left: 0;">
-    <%= form_with model: @customer, url: customers_path, class: "col-12", local: true do |f| %>
+    <%= form_with model: @customer, url: customer_update_path, class: "col-12", local: true do |f| %>
       
       <%= f.label "名前", class: "col-2 mr-3" %>
       <%= f.text_field :last_name, autocomplete: "last_name", class: "col-2 mr-3" %>
@@ -20,7 +20,7 @@
       <%= f.text_field :address, autocomplete: "address", class: "col-5" %>
       <div class="w-100"></div>
       <%= f.label "電話番号", class: "col-2 mr-3" %>
-      <%= f.text_field :phone_number, autocomplete: "phone", class: "col-2" %>
+      <%= f.text_field :phone_number, autocomplete: "phone_number", class: "col-2" %>
       <div class="w-100"></div>
       <%= f.label "メールアドレス", class: "col-2 mr-3" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "col-2" %>
