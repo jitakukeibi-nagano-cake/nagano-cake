@@ -1,9 +1,79 @@
+<div class="container">
+  <div class="row pt-5">
+    <div class="col-md-8">
+      <h3>注文履歴詳細</h3>
+    </div>
+    <table class="table table-borderless">
+        <tr>
+          <th class="table-active">購入者</th>
+          <td><%= @customers.first_name %><%= @customers.last_name %></td>
+        </tr>
+        <tr>
+          <th class="table-active">注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <th class="table-active">配送先</th>
+          <td>〒<%= @customers.postcode %>
+              <%= @customers.address %>
+              <%= @order.name %>
+          </td>
+        </tr>
+        <tr>
+          <th class="table-active">支払方法</th>
+          <td><%= @order.payment_method_i18n %></td>
+        </tr>
+        <tr>
+          <th class="table-active">注文ステータス</th>
+          <td>
+            <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
+            <%= f.select :making_status, Order.making_statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+            <%= f.submit "更新" %>
+            <% end %>
+          </td>
+        </tr>
+    </table>
+
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th>単価(税込)</th>
+              <th>数量</th>
+              <th>小計</th>
+              <th>製作ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order_details.each do |order_detail| %>
+            <tr>
+              <td><%= order_detail.name %></td>
+              <td><%= order_detail.price %></td>
+              <td><%= order_detail.quantity %></td>
+              <td><%= order_detail. %></td>
+              <td>
+                <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
+                <%= f.select :status, Order.statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+                <%= f.submit "更新" %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-1">
+        <table class="table table-borderless">
+          <tr>
+            <th class="table-active">商品合計</th>
+            <td><%= @order.</td>
+          </tr>
+        </table>
+      </div>
+  </div>
+</div>
 
 
 
 
-
-<%= form_with(model: @order, url: admins_order_path, local: true, class: "form-row") do |f| %>
-    <%= f.select :status, Order.statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6"  %>
-    <%= f.submit "更新" %>
-<% end %>
