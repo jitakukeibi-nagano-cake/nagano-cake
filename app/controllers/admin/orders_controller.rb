@@ -1,11 +1,11 @@
-class Admin::OrdersController < ApplicationController
+class Admin::OrderController < ApplicationController
 
 
     def index
-        @orders = Order.all.page(params[:page])
+        @order = Order.all.page(params[:page])
     end
 
     def show
-        @orders = Order.find(params[:id])
+        @order = Order.find(params[:id])
     end
 end

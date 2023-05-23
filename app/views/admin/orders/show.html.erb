@@ -1,0 +1,9 @@
+
+
+
+
+
+<%= form_with(model: @order, url: admins_order_path, local: true, class: "form-row") do |f| %>
+    <%= f.select :status, Order.statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6"  %>
+    <%= f.submit "更新" %>
+<% end %>

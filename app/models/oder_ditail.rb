@@ -1,2 +1,2 @@
-class OderDitail < ApplicationRecord
+class OrderDetail < ApplicationRecord
 end
