@@ -49,9 +49,9 @@
             <% @order_details.each do |order_detail| %>
             <tr>
               <td><%= order_detail.name %></td>
-              <td><%= order_detail.price %></td>
+              <td><%= order_detail.item.with_tax_price %></td>
               <td><%= order_detail.quantity %></td>
-              <td><%= order_detail. %></td>
+              <td><%= order_detail.subtotal %></td>
               <td>
                 <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
                 <%= f.select :status, Order.statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6"  %>
@@ -67,7 +67,15 @@
         <table class="table table-borderless">
           <tr>
             <th class="table-active">商品合計</th>
-            <td><%= @order.</td>
+            <td><%= @order.subtotal %>円</td>
+          </tr>
+          <tr>
+            <th class="table table-active">送料</th>
+            <td><%= @order.postage %>円</td>
+          </tr>
+          <tr>
+            <th class="table table-active">請求合計金額</th>
+            <td><%= @order.total_payment %>円</td>
           </tr>
         </table>
       </div>
