@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
- # 顧客用
+  # 顧客用
   # URL /customers/sign_in ...
   devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -25,7 +25,7 @@ end
   scope module: :public do
     resources :items, only: [:index, :show]
     resource :customers, only: [:show, :update, :edit]
-   
+    resources :delivery_addresses, only: [:index, :edit, :create, :update, :destroy]
     get "quit" => "customers#quit", as: "quit_customer"
     patch "out" => "customers#out", as: "out_customer"
     root to: 'homes#top'
