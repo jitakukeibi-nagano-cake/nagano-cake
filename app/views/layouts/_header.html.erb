@@ -11,7 +11,7 @@
           
           <!--顧客ログイン-->
         <% if customer_signed_in? %>
-        <div class="mr-5 mt-2">
+        <div class="mr-8 mt-2">
           <i class="fas fa-child"></i>ようこそ、<%= current_customer.first_name %><%= current_customer.last_name %>様<i class="fas fa-child"></i>
           </div>
           <li>
@@ -37,11 +37,11 @@
         
         <!--管理者ログイン-->
         <% elsif admin_signed_in? %>
-          <div class="mr-5 mt-2">
+          <div class="mr-8 mt-2">
               <i class="fas fa-user-astronaut"></i>管理者ログイン<i class="fas fa-user-astronaut"></i>
           </div>
           <li>
-            <%= link_to items_path, class:'nav-link text-dark' do %>
+            <%= link_to admin_items_path, class:'nav-link text-dark' do %>
             <i class="fas fa-list-ol"></i>商品一覧
             <% end %>
           </li>
@@ -51,7 +51,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to  admin_orders_path, class:'nav-link text-dark' do %>
+            <%= link_to  admin_root_path, class:'nav-link text-dark' do %>
             <i class="fab fa-opencart"></i>注文履歴一覧
             <% end %>
           </li>
@@ -68,7 +68,7 @@
           
           <!--未ログイン-->
         <% else %>
-        <div class="mr-5 mt-2">
+        <div class="mr-8 mt-2">
           <i class="far fa-smile"></i>ようこそ、ゲスト様<i class="far fa-smile"></i>
         </div>
           <li>
