@@ -24,11 +24,12 @@ end
 
   scope module: :public do
     resources :items, only: [:index, :show]
-    resource :customers, only: [:show, :update]
+    resource :customers, only: [:show]
+    patch "update" => "customers#update", as: "customer_update"
     get "edit" => "customers#edit", as: "edit_customers"
     resources :delivery_addresses, only: [:index, :edit, :create, :update, :destroy]
-    get "quit" => "customers#quit", as: "quit_customer"
-    patch "out" => "customers#out", as: "out_customer"
+    get "customers/quit" => "customers#quit", as: "quit_customer"
+    patch "customers/out" => "customers#out", as: "out_customer"
     resources :orders, only:[:new,:create,:index,:show]
     resources :cart_items, only: [:index, :create, :update, :destroy] do
       collection do

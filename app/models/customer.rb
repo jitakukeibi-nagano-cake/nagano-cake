@@ -7,4 +7,8 @@ class Customer < ApplicationRecord
   has_many :item, through: :cart_item, dependent: :destroy
   has_many :cart_items
   has_many :delivery_addresses
+  
+  def active_for_authentication?
+    super && (self.is_deleted == false)
+  end
 end
