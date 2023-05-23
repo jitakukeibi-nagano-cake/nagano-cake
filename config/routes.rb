@@ -31,6 +31,11 @@ end
     get "customers/quit" => "customers#quit", as: "quit_customer"
     patch "customers/out" => "customers#out", as: "out_customer"
     resources :orders, only:[:new,:create,:index,:show]
+    resources :cart_items, only: [:index, :create, :update, :destroy] do
+      collection do
+        delete 'destroy_all'
+      end
+    end
     get '/orders/confirm' => 'orders#confirm'
     post '/orders/confirm' => 'orders#confirm'
     get '/orders/thanks' => 'orders#thanks'

@@ -22,12 +22,6 @@ class Public::DeliveryAddressesController < ApplicationController
 
   def edit
     @address = DeliveryAddress.find(params[:id])
-    #address = DeliveryAddress.find(params[:id])#DeliveryAddressからパラメータのidに合致するレコードを探してaddressに入れてください。
-    #customer = Customer.find(address.customer.id)#Customerからaddressレコードのcustomer
-    #unless customer.id == current_customer.id
-    #  redirect_to books_path
-    #end
-    #@book = Book.find(params[:id])
   end
 
   def update

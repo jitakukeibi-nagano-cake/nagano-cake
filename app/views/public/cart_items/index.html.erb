@@ -1,59 +1,56 @@
-<%= render 'layouts/header' %>
 <div class="container">
   <div class="row">
     <h4 class="shopping_cart">ショッピングカート</h4>
-    <%= link_to "カートを空にする", destroy_all_cart_items, method: :delete, class"btn btn-sm btn-danger" %>
+    <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, class:"btn btn-sm btn-danger" %>
   </div>
   <div class="row">
     <table class="cart_table table">
       <thead class="thead-light">
         <tr>
           <th>商品名</th>
-          <th>単価(税込)</th>
+          <th>単価</th>
           <th>数量</th>
           <th>小計</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <% @cart_item.each do |cart_item| %>
+        <% @cart_items.each do |cart_item| %>
         <tr>
-          <td><%= image_tag cart_item.item.image, size: "200x100" %> <%= cart_item.item.name %></td>
+          <td><%= image_tag cart_item.item.image, size: "50x50" %><%= cart_item.item.name %></td>
           <td><%= cart_item.item.with_tax_price %></td>
           <td>
-            <%= form_with model: @cart_item, url: '/cart_items/:id',method: :patch do |f| %>
-              <%= f.select :quantity, *[1..10], { selected: cart_item.quantity }, { class: "form-control", required: true } %>
-              <%= f.submit "変更", class:"btn btn-sm btn-success" %>
-            <% end %>
+            <%= form_with model: cart_item, url:cart_item_path(cart_item.id), method: :patch do |f| %>
+            <%= f.select :quantity, *[1..10], { selected: cart_item.quantity }, { class: "form-control", required: true } %>
+            <%= f.submit "変更", class:"btn btn-sm btn-success" %>
           </td>
           <td><%= cart_item.subtotal %></td>
-          <td>
-            <%= link_to "削除する", cart_item_path(cart_item.id), method: :delete, class:"btn btn-sm btn-danger" %>
-          </td>
+          <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete, class:"btn btn-sm btn-danger" %></td>
         </tr>
+        <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
   <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-3">
       <%= link_to "買い物を続ける", root_path, class:"btn btn-sm btn-primary" %>
     </div>
-
-    <div class="col-md-4">
-      <table class="table">
-        <thead class="thead-light">
-          <% @cart_item.each do |cart_item| %>
-          <% @total = @total + cart_item.subtotal %>
-          <th>合計金額</th>
+    <div class="col-md-3">
+      <table class="table-bordered">
+        <tr>
+          <td>合計金額</td>
+          <% @cart_items.each do |cart_item| %>
+            <% @total = @total + cart_item.subtotal %>
+          <% end %>
           <td><%= @total %></td>
-        </thead>
+        </tr>
       </table>
     </div>
   </div>
   <div class="row">
     <div class="offset-md-4 col-md-4">
-      <%= link_to "情報入力に進む", order_new_path, class:"btn btn-success" %>
+      <%= link_to "情報入力に進む", new_order_path, class:"btn btn-success" %>
     </div>
   </div>
 </div>
