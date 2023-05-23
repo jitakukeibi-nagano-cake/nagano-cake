@@ -1,2 +1,38 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+<div class="container">
+  <div class="row my-3">
+    <div class="col-sm-10 px-sm-0 mx-auto">
+      <h2>注文情報入力</h2>
+      <%= form_with model: @order, url: {controller: 'public/orders', action: 'confirm' },  local:true do |f| %>
+      <h4 class="h4 mt-2"><b>支払い方法</b></h4>
+      <%= f.radio_button :payment_option, 0, checked: true, class: "ml-4" %>クレジットカード<br>
+      <%= f.radio_button :payment_option, 1, class: "ml-4"  %>銀行振込
+      <h4 class="h4 mt-2"><b>お届け先</b></h4>
+      <%= f.radio_button :address_option, 0, checked: true, class: "ml-4"  %>ご自身の住所<br>
+      <div class="ml-5"><%= "〒#{current_customer.postcode} #{current_customer.address}" %></div>
+      <div class="ml-5"><%= current_customer.last_name + current_customer.first_name  %></div>
+      <% if current_customer.shipping_addresses.empty? %>
+      <% else %>
+        <%= f.radio_button :address_option, 1, class: "ml-4 mt-3"  %>登録済み住所から選択<br>
+        <div class="ml-5 "><%= f.collection_select(:registration_shipping_address, @shipping_addresses, :id, :shipping_postcode_and_address_and_name,
+                                                  {}, {class: "form-control"}) %></div>
+      <% end %>
+      <%= f.radio_button :address_option, 2, class: "ml-4 mt-3"  %>新しいお届け先<br>
+      <table class="ml-5">
+        <tr>
+          <td>郵便番号（ハイフン無し）</td>
+          <td><%= f.text_field :shipping_postcode, class: "form-control", size: 40, id: "customer_postcode" %></td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td><%= f.text_field :shipping_address, class: "form-control", size: 40, id: "customer_address" %></td>
+        </tr>
+        <tr>
+          <td>宛名</td>
+          <td><%= f.text_field :shipping_name, class: "form-control", size: 40 %></td>
+        </tr>
+      </table>
+      <div class="text-center mt-3"><%= f.submit "確認画面へ進む", class: "btn btn-primary" %></div>
+      <% end %>
+    </div>
+  </div>
+</div>

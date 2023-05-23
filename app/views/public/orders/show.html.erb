@@ -1,2 +1,48 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<div class="container">
+  <div class="row"><h2>注文確認画面</h2></div>
+  <div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-8 px-8">
+      <p>注文情報</p>
+      <table class="table table-bordered">
+        <tr><th class="table-active">注文日</th><td><%= @order.created_at.strftime('%Y/%m/%d') %></td></tr>
+        <tr><th class="table-active">配送先</th><td><%= "〒#{@order.shipping_postcode}" %><br><%= @order.shipping_address %><br><%= @order.shipping_name %></td></tr>
+        <tr><th class="table-active">支払い方法</th><td><%= @order.payment_option %></td></tr>
+        <tr><th class="table-active">ステータス</th><td><%= @order.order_status %></td></tr>
+
+      </table>
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3 px-3 offset-1">
+      <p>請求情報</p>
+      <table class="table table-bordered">
+        <tr><th class="table-active">送料</th><td>800</td></tr>
+        <tr><th class="table-active">商品合計</th><td><%= @order.total_payment - 800 %></td></tr>
+        <tr><th class="table-active">請求合計</th><td><%= @order.total_payment %></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-8 px-8">
+      <p>注文内容</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="table-active" style="width:60%">商品</th>
+            <th class="table-active" style="width:20%">単価（税込み）</th>
+            <th class="table-active" style="width:10%">個数</th>
+            <th class="table-active" style="width:10%">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @order.order_details.each do |order_detail| %>
+          <tr>
+            <td style="word-break:break-all"><%= order_detail.item.name %></td>
+            <td><%= order_detail.price_including_tax %></td>
+            <td><%= order_detail.amount %></td>
+            <td><%= order_detail.amount * order_detail.price_including_tax %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
