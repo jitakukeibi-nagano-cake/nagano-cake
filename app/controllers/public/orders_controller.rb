@@ -1,44 +1,44 @@
 class Public::OrdersController < ApplicationController
   include Public::HomesHelper
   
+  before_action :to_confirm, only: [:show]
   before_action :authenticate_customer!
+  
   
 
   def new
     @order = Order.new
-    @shipping_addresses = current_customer.shipping_addresses
+    @delivery_address = current_customer.address
+    @delivery_address = DeliveryAddress.where(customer: current_customer)
   end
 
   def confirm
+     @cart_items = current_customer.cart_items
     @order = Order.new
-    @cart_items = CartItem.where(customer_id: current_customer.id)
-    customer = current_customer
-    address_option = params[:order][:address_option].to_i
-
-    @order.payment_option = params[:order][:payment_option].to_i
-    @order.temporary_information_input(customer.id)
-
-    if address_option == 0
-      @order.order_in_postcode_address_name(customer.postcode, customer.address, customer.last_name)
-    elsif address_option == 1
-      shipping = ShippingAddress.find(params[:order][:registration_shipping_address])
-      @order.order_in_postcode_address_name(shipping.shipping_postcode, shipping.shipping_address, shipping.shipping_name)
-    elsif address_option == 2
-      @order.order_in_postcode_address_name(params[:order][:shipping_postcode], params[:order][:shipping_address], params[:order][:shipping_name])
-    else
-    end
-    unless @order.valid?
-      flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
-      p @order.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
-    # render plain: @order.inspect
+    
+    
+    
+     if params[:order][:addresses] == "residence"
+      @order.postcode = current_customer.postcode
+      @order.address = current_customer.address
+      @order.destination = current_customer.last_name + current_customer.first_name
+     elsif params[:order][:addresses] == "registration"
+      delivery = DeliverDestination.find(params[:order][:deliver_destination_id]) 
+      @order.postcode = delivery.postcode
+      @order.address = delivery.address
+      @order.destination = delivery.destination
+     elsif params[:order][:addresses] == "new_address"
+      @order.postcode = params[:order][:postcode]
+      @order.address = params[:order][:address]
+      @order.destination = params[:order][:destination]
+      @delivery = "1"
+     end
   end
 
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    @order.shipping_fee = 800
+   
     if @order.save
       @cart_items = CartItem.where(customer_id: current_customer.id)
       @cart_items.each do |cart_item|
@@ -71,7 +71,11 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:shipping_postcode, :shipping_address, :shipping_name, :total_payment, :payment_option)
+    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method)
+  end
+  
+  def to_confirm
+    redirect_to customer_items_path if params[:id] == "confirm"
   end
 
 end
