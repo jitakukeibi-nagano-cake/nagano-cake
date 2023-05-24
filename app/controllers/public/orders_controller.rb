@@ -10,29 +10,28 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.new
-    @cart_items = CartItem.where(customer_id: current_customer.id)
-    customer = current_customer
-    address_option = params[:order][:address_option].to_i
+     @cart_items = current_customer.cart_items
+     @total_quantity = @cart_items.inject(0) {|sum, item| sum + item.subtotal }
+     @postage = 800
+     @total_payment = @postage + @total_quantity
+    
+     @order = Order.new
+     if params[:order][:addresses] == "residence"
+      @order.postcode = current_customer.postcode
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name + current_customer.first_name
+     elsif params[:order][:addresses] == "registration"
+      delivery = DeliveryAddress.find(params[:order][:delivery_address_id]) 
+      @order.postcode = delivery.postcode
+      @order.address = delivery.address
+      @order.name = delivery.name
+     elsif params[:order][:addresses] == "new_address"
+      @order.postcode = params[:order][:postcode]
+      @order.address = params[:order][:address]
+      @order.name = params[:order][:name]
+      @delivery = "1"
+     end
 
-    @order.payment_option = params[:order][:payment_option].to_i
-    @order.temporary_information_input(customer.id)
-
-    if address_option == 0
-      @order.order_in_postcode_address_name(customer.postcode, customer.address, customer.last_name)
-    elsif address_option == 1
-      shipping = ShippingAddress.find(params[:order][:registration_shipping_address])
-      @order.order_in_postcode_address_name(shipping.shipping_postcode, shipping.shipping_address, shipping.shipping_name)
-    elsif address_option == 2
-      @order.order_in_postcode_address_name(params[:order][:shipping_postcode], params[:order][:shipping_address], params[:order][:shipping_name])
-    else
-    end
-    unless @order.valid?
-      flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
-      p @order.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
-    # render plain: @order.inspect
   end
 
   def create
@@ -45,7 +44,7 @@ class Public::OrdersController < ApplicationController
         order_detail = OrderDetail.new
         order_detail.item_id = cart_item.item_id
         order_detail.order_id = @order.id
-        order_detail.amount = cart_item.amount
+        order_detail.quanity = cart_item.quanity
         order_detail.price_including_tax = change_price_excluding_tax(cart_item.item.price_excluding_tax)
         order_detail.production_status = 0
         if order_detail.save
