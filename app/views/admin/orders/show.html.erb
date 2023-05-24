@@ -6,7 +6,7 @@
     <table class="table table-borderless">
         <tr>
           <th class="table-active">購入者</th>
-          <td><%= @customers.first_name %><%= @customers.last_name %></td>
+          <td><%= @customer.first_name %><%= @customer.last_name %></td>
         </tr>
         <tr>
           <th class="table-active">注文日</th>
@@ -14,8 +14,8 @@
         </tr>
         <tr>
           <th class="table-active">配送先</th>
-          <td>〒<%= @customers.postcode %>
-              <%= @customers.address %>
+          <td>〒<%= @customer.postcode %>
+              <%= @customer.address %>
               <%= @order.name %>
           </td>
         </tr>

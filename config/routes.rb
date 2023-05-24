@@ -23,6 +23,7 @@ namespace :admin do
 end
 
   scope module: :public do
+    get '/orders/thanks' => 'orders#thanks'
     resources :items, only: [:index, :show]
     resource :customers, only: [:show]
     patch "update" => "customers#update", as: "customer_update"
@@ -38,7 +39,7 @@ end
     end
     get '/orders/confirm' => 'orders#confirm'
     post '/orders/confirm' => 'orders#confirm'
-    get '/orders/thanks' => 'orders#thanks'
+   
     root to: 'homes#top'
     get '/about' => 'homes#about'
   end
