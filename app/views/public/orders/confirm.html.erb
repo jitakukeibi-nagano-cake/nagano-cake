@@ -12,16 +12,18 @@
           </tr>
         </thead>
         <tbody>
-          <% @total_amount = 0 %>
+         
           <% @cart_items.each do |cart_item| %>
             <tr>
               <td class="align-middle" style="word-break:break-all"><%= image_tag cart_item.item.image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %><%= cart_item.item.name %></td>
-              <td class="align-middle"><%= change_price_excluding_tax(cart_item.item.price_excluding_tax).to_s(:delimited) %></td>
-              <td class="align-middle"><%= cart_item.amount %></td>
-              <td class="align-middle"><%= (amount = change_price_excluding_tax(cart_item.item.price_excluding_tax * cart_item.amount)).to_s(:delimited) %></td>
+
+              <td class="align-middle"><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
+              <td class="align-middle"><%= cart_item.quantity %></td>
+              <td class="align-middle"><%= cart_item.subtotal.to_s(:delimited) %></td>
+
             </tr>
-            <% @total_amount += amount %>
-          <% end %>
+           
+          <% end %> 
         </tbody>
       </table>
 
@@ -32,9 +34,9 @@
     </div>
     <div class="col-sm-3">
       <table class="table table-bordered">
-        <tr><th class="table-active" style="width:50%">送料</th><td>800</td></tr>
-        <tr><th class="table-active" style="width:50%">商品合計</th><td><%= @total_amount.to_s(:delimited) %></td></tr>
-        <tr><th class="table-active" style="width:50%">請求合計</th><td><%= (@total_billing_amount = 800 + @total_amount).to_s(:delimited) %></td></tr>
+        <tr><th class="table-active" style="width:50%">送料</th><td><%= @postage %></td></tr>
+        <tr><th class="table-active" style="width:50%">商品合計</th><td><%= @total_quantity.to_s(:delimited) %></td></tr>
+        <tr><th class="table-active" style="width:50%">請求合計</th><td><%= @total_payment.to_s(:delimited) %></td></tr>
       </table>
     </div>
   </div>

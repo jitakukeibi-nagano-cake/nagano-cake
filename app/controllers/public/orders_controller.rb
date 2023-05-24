@@ -14,23 +14,27 @@ class Public::OrdersController < ApplicationController
 
   def confirm
      @cart_items = current_customer.cart_items
-    @order = Order.new
+     @total_quantity = @cart_items.inject(0) {|sum, item| sum + item.subtotal }
+     @postage = 800
+     @total_payment = @postage + @total_quantity
+     
+     @order = Order.new
     
     
     
      if params[:order][:addresses] == "residence"
       @order.postcode = current_customer.postcode
       @order.address = current_customer.address
-      @order.destination = current_customer.last_name + current_customer.first_name
+      @order.name = current_customer.last_name + current_customer.first_name
      elsif params[:order][:addresses] == "registration"
-      delivery = DeliverDestination.find(params[:order][:deliver_destination_id]) 
+      delivery = DeliveryAddress.find(params[:order][:delivery_address_id]) 
       @order.postcode = delivery.postcode
       @order.address = delivery.address
-      @order.destination = delivery.destination
+      @order.name = delivery.name
      elsif params[:order][:addresses] == "new_address"
       @order.postcode = params[:order][:postcode]
       @order.address = params[:order][:address]
-      @order.destination = params[:order][:destination]
+      @order.name = params[:order][:name]
       @delivery = "1"
      end
   end
@@ -45,7 +49,7 @@ class Public::OrdersController < ApplicationController
         order_detail = OrderDetail.new
         order_detail.item_id = cart_item.item_id
         order_detail.order_id = @order.id
-        order_detail.amount = cart_item.amount
+        order_detail.quanity = cart_item.quanity
         order_detail.price_including_tax = change_price_excluding_tax(cart_item.item.price_excluding_tax)
         order_detail.production_status = 0
         if order_detail.save
