@@ -4,14 +4,14 @@
 
   <div class="customer-edit row mt-5" style="margin-left: 0; margin-right: 0; padding-left: 0;">
     <%= form_with model: @customer, url: customer_update_path, class: "col-12", local: true do |f| %>
-      
+
       <%= f.label "名前", class: "col-2 mr-3" %>
-      <%= f.text_field :last_name, autocomplete: "last_name", class: "col-2 mr-3" %>
-      <%= f.text_field :first_name, autocomplete: "first_name", class: "col-2" %>
+      <%= f.text_field :first_name, autocomplete: "first_name", class: "col-2 mr-3" %>
+      <%= f.text_field :last_name, autocomplete: "last_name", class: "col-2" %>
       <div class="w-100"></div>
       <%= f.label "フリガナ", class: "col-2 mr-3" %>
-      <%= f.text_field :last_name_kana, autocomplete: "last_name_kana", class: "col-2 mr-3" %>
-      <%= f.text_field :first_name_kana, autocomplete: "first_name_kana", class: "col-2" %>
+      <%= f.text_field :first_name_kana, autocomplete: "first_name_kana", class: "col-2 mr-3" %>
+      <%= f.text_field :last_name_kana, autocomplete: "last_name_kana", class: "col-2" %>
       <div class="w-100"></div>
       <%= f.label "郵便番号", class: "col-2 mr-3" %>
       <%= f.text_field :postcode, autocomplete: "postcode", class: "col-2"  %>

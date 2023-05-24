@@ -15,7 +15,7 @@
           <% @total_amount = 0 %>
           <% @cart_items.each do |cart_item| %>
             <tr>
-              <td class="align-middle" style="word-break:break-all"><%= image_tag cart_item.item, :image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %><%= cart_item.item.name %></td>
+              <td class="align-middle" style="word-break:break-all"><%= image_tag cart_item.item.image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %><%= cart_item.item.name %></td>
               <td class="align-middle"><%= change_price_excluding_tax(cart_item.item.price_excluding_tax).to_s(:delimited) %></td>
               <td class="align-middle"><%= cart_item.amount %></td>
               <td class="align-middle"><%= (amount = change_price_excluding_tax(cart_item.item.price_excluding_tax * cart_item.amount)).to_s(:delimited) %></td>
