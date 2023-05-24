@@ -9,4 +9,13 @@ enum making_status: {
   
 }
 
+  validates :postcode, presence: true
+  validates :address, presence: true
+  validates :name, presence: true
+  validates :postage, presence: true
+  validates :payment_method, presence: true
+  validates :total_payment, presence: true
+  validates :status, presence: true
+  validates :email, presence: true
+   
 end

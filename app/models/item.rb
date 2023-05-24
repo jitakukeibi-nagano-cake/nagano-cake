@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :genre
   has_many :customers, through: :cart_item
   has_many :cart_items
-  
+
   validates :name, presence: true
   validates :price, presence: true
   validates :introduction, presence: true, length: {maximum: 200 }
