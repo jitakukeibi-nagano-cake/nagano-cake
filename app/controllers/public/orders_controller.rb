@@ -14,7 +14,11 @@ class Public::OrdersController < ApplicationController
 
   def confirm
      @cart_items = current_customer.cart_items
-    @order = Order.new
+     @total_quantity = @cart_items.inject(0) {|sum, item| sum + item.subtotal }
+     @postage = 800
+     @total_payment = @postage + @total_quantity
+     
+     @order = Order.new
     
     
     
