@@ -16,9 +16,11 @@
           <% @cart_items.each do |cart_item| %>
             <tr>
               <td class="align-middle" style="word-break:break-all"><%= image_tag cart_item.item.image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %><%= cart_item.item.name %></td>
+
               <td class="align-middle"><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
               <td class="align-middle"><%= cart_item.quantity %></td>
               <td class="align-middle"><%= cart_item.subtotal.to_s(:delimited) %></td>
+
             </tr>
            
           <% end %> 
