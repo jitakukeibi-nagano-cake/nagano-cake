@@ -1,15 +1,12 @@
 class Public::OrdersController < ApplicationController
   include Public::HomesHelper
-  
-  before_action :to_confirm, only: [:show]
+
   before_action :authenticate_customer!
-  
-  
+
 
   def new
     @order = Order.new
-    @delivery_address = current_customer.address
-    @delivery_address = DeliveryAddress.where(customer: current_customer)
+    @delivery_addresses = current_customer.delivery_addresses
   end
 
   def confirm
@@ -17,11 +14,8 @@ class Public::OrdersController < ApplicationController
      @total_quantity = @cart_items.inject(0) {|sum, item| sum + item.subtotal }
      @postage = 800
      @total_payment = @postage + @total_quantity
-     
+    
      @order = Order.new
-    
-    
-    
      if params[:order][:addresses] == "residence"
       @order.postcode = current_customer.postcode
       @order.address = current_customer.address
@@ -37,12 +31,13 @@ class Public::OrdersController < ApplicationController
       @order.name = params[:order][:name]
       @delivery = "1"
      end
+
   end
 
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-   
+    @order.shipping_fee = 800
     if @order.save
       @cart_items = CartItem.where(customer_id: current_customer.id)
       @cart_items.each do |cart_item|
@@ -75,11 +70,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method)
-  end
-  
-  def to_confirm
-    redirect_to customer_items_path if params[:id] == "confirm"
+    params.require(:order).permit(:shipping_postcode, :shipping_address, :shipping_name, :total_payment, :payment_option)
   end
 
 end
