@@ -1,8 +1,10 @@
 class Admin::ItemsController < ApplicationController
     # ゴリ作成
+    before_action :authenticate_admin!
     
     def index
-    @items = Item.all
+        @items = Item.all.page(params[:page])
+        @item = Item.page(params[:page]).per(6)
     end
       
     def new
