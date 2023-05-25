@@ -15,17 +15,18 @@ class Public::OrdersController < ApplicationController
      @postage = 800
      @total_payment = @postage + @total_quantity
     
-     @order = Order.new(params[:id])
-     if params[:order][:addresses] == "residence"
+
+     @order = Order.new(order_params)
+     if params[:order][:select_address] == "0"
       @order.postcode = current_customer.postcode
       @order.address = current_customer.address
       @order.name = current_customer.last_name + current_customer.first_name
-     elsif params[:order][:addresses] == "registration"
+     elsif params[:order][:select_address] == "1"
       delivery = DeliveryAddress.find(params[:order][:delivery_address_id]) 
       @order.postcode = delivery.postcode
       @order.address = delivery.address
       @order.name = delivery.name
-     elsif params[:order][:addresses] == "new_address"
+     elsif params[:order][:select_address] == "2"
       @order.postcode = params[:order][:postcode]
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
@@ -56,6 +57,7 @@ class Public::OrdersController < ApplicationController
       render :new
     end
   end
+  
 
   def thanks
   end
@@ -65,7 +67,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.where(customer_id: current_customer.id).order(created_at: :desc)
+    @orders = current_customer.orders
   end
 
   private

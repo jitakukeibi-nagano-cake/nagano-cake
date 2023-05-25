@@ -1,21 +1,26 @@
 <div class="container">
   <div class="row my-3">
     <div class="col-sm-10 px-sm-0 mx-auto">
+      <%= form_with model: @order, url:orders_confirm_path, class: "offset-md-1", local: true do |f| %>
       <h2>注文情報入力</h2>
-      <%= form_with model: @order, url: {controller: 'public/orders', action: 'confirm' },  local:true do |f| %>
-      <h4 class="h4 mt-2"><b>支払い方法</b></h4>
-      <%= f.radio_button :payment_method, 0, checked: true, class: "ml-4" %>クレジットカード<br>
-      <%= f.radio_button :payment_method, 1, class: "ml-4"  %>銀行振込
-      <h4 class="h4 mt-2"><b>お届け先</b></h4>
-      <%= f.radio_button :address, 0, checked: true, class: "ml-4"  %>ご自身の住所<br>
+      <h4 class="h4 mt-2">
+        <b>支払い方法</b></h4>
+      <%= f.radio_button :payment_method, :"クレジットカード", checked: true, class: "ml-4" %>クレジットカード<br>
+      <%= f.radio_button :payment_method, :"銀行振込", class: "ml-4"  %>銀行振込
+      <h4 class="h4 mt-2">
+        <b>お届け先</b></h4>
+      <%= f.radio_button :select_address, 0, checked: true, class: "ml-4"  %>
+      ご自身の住所<br>
       <div class="ml-5"><%= "〒#{current_customer.postcode} #{current_customer.address}" %></div>
       <div class="ml-5"><%= current_customer.first_name + current_customer.last_name  %></div>
       <% if current_customer.address.empty? %>
       <% else %>
-        <%= f.radio_button :address, 1, class: "ml-4 mt-3"  %>登録済み住所から選択<br>
+        <%= f.radio_button :select_address, 1, class: "ml-4 mt-3"  %>
+        登録済み住所から選択<br>
         <%= f.collection_select(:delivery_address_id, @delivery_addresses, :id, :address) %>
       <% end %><br>
-      <%= f.radio_button :address, 2, class: "ml-4 mt-3"  %>新しいお届け先<br>
+      <%= f.radio_button :select_address, 2, class: "ml-4 mt-3"  %>
+      新しいお届け先<br>
       <table class="ml-5">
         <tr>
           <td>郵便番号（ハイフン無し）</td>
