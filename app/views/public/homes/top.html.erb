@@ -1,7 +1,7 @@
 
-<div class="container">
+<div class="container-fluid">
   <div class="row mt-5">
-    <div class="col-md-3">
+    <div class="offset-lg-1 col-lg-2">
       <table class="tabel table-bordered table-hover">
         <thead>
           <tr>
@@ -16,7 +16,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-9">
+    <div class="col-lg-8">
       <div class="greeting-image">
         <p class="greeting text-center ">
            ようこそ、ながのCAKEへ！<br>
@@ -28,26 +28,19 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-8 my-md-3">
-      <table class="new-tabel">
-        <thead>
-          <tr>
-            <th><strong>新着商品</strong></th>
-          </tr>
-        </thead>
+    <div class="col-lg-3"></div>
+    <div class="col-lg-8 my-3">
+      <h3 calss="new-items">新着商品</h3>
+      <table class="new-tabel my-2">
         <tbody>
           <tr>
-            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
-            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
-            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
-            <td><%= image_tag 'cake-2.jpg', class: 'about_image', size: '250x200' %></td>
-          </tr>
-          <tr>
-            <td>商品名</td><td>商品名</td><td>商品名</td><td>商品名</td>
-          </tr>
-          <tr>
-            <td>¥0,000</td><td>¥0,000</td><td>¥0,000</td><td>¥0,000</td>
+            <% @items.last(4).each do |item| %>
+            <td>
+              <%= link_to image_tag(item.image), item_path(item), class: 'item_image mr-2', size: '250x190'%><br>
+              <%= item.name %><br>
+              ¥<%= item.with_tax_price.to_s(:delimited) %>
+            </td>
+            <% end %>
           </tr>
         </tbody>
       </table>
