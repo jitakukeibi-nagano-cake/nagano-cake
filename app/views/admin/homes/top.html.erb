@@ -24,19 +24,19 @@
               </td>
               <!--購入者-->
               <td class = "align-middle">
-               <%= order.customer.last_name + order.customer.first_name %>
+               <%= order.customer.first_name + order.customer.last_name %>
               </td>
               <!--注文個数-->
               <td class = "align-middle">
                <% @total_quantity = 0 %>
-               <% order.order_items.each do |order_item| %>
-                 <% @total_quantity += order_item.quamtity %>
+               <% order.order_details.each do |order_detail| %>
+                 <% @total_quantity += order_detail.quantity %>
                <% end %>
                <%= @total_quantity %>
               </td>
-              <!--販売ステータス-->
+              <!--注文ステータス-->
               <td class = "align-middle">
-               <%= order.is_active %>
+               <%= order.status %>
               </td>
            </tr>
                <% end %>

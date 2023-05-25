@@ -37,22 +37,23 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    @order.shipping_fee = 800
+    @postage= 800
     if @order.save
       @cart_items = CartItem.where(customer_id: current_customer.id)
       @cart_items.each do |cart_item|
         order_detail = OrderDetail.new
         order_detail.item_id = cart_item.item_id
         order_detail.order_id = @order.id
-        order_detail.quanity = cart_item.quanity
-        order_detail.price_including_tax = change_price_excluding_tax(cart_item.item.price_excluding_tax)
-        order_detail.production_status = 0
-        if order_detail.save
-          @cart_items.destroy_all
-        end
+        order_detail.quantity = cart_item.quantity
+        order_detail.price = cart_item.subtotal 
+        order_detail.making_status = 0
+        order_detail.save
       end
       redirect_to orders_thanks_path
+      @cart_items.destroy_all
     else
+      @customer = current_customer
+      render :new
     end
   end
 
@@ -70,7 +71,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:shipping_postcode, :shipping_address, :shipping_name, :total_payment, :payment_option)
+    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method)
   end
 
 end
