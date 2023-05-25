@@ -14,14 +14,14 @@ class Public::OrdersController < ApplicationController
      @total_quantity = @cart_items.inject(0) {|sum, item| sum + item.subtotal }
      @postage = 800
      @total_payment = @postage + @total_quantity
-    
+
      @order = Order.new
      if params[:order][:addresses] == "residence"
       @order.postcode = current_customer.postcode
       @order.address = current_customer.address
       @order.name = current_customer.last_name + current_customer.first_name
      elsif params[:order][:addresses] == "registration"
-      delivery = DeliveryAddress.find(params[:order][:delivery_address_id]) 
+      delivery = DeliveryAddress.find(params[:order][:delivery_address_id])
       @order.postcode = delivery.postcode
       @order.address = delivery.address
       @order.name = delivery.name
@@ -45,7 +45,7 @@ class Public::OrdersController < ApplicationController
         order_detail.item_id = cart_item.item_id
         order_detail.order_id = @order.id
         order_detail.quantity = cart_item.quantity
-        order_detail.price = cart_item.subtotal 
+        order_detail.price = (cart_item.item.price * 1.1).floor
         order_detail.making_status = 0
         order_detail.save
       end
@@ -71,7 +71,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method)
+    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method, :postage)
   end
 
 end

@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>
-         
+
           <% @cart_items.each do |cart_item| %>
             <tr>
               <td class="align-middle" style="word-break:break-all"><%= image_tag cart_item.item.image, format: 'jpeg', fallback: "no_image.jpg", size: "50x50" %><%= cart_item.item.name %></td>
@@ -22,8 +22,8 @@
               <td class="align-middle"><%= cart_item.subtotal.to_s(:delimited) %></td>
 
             </tr>
-           
-          <% end %> 
+
+          <% end %>
         </tbody>
       </table>
 
@@ -42,11 +42,12 @@
   </div>
   <div class="row">
     <div class="col-sm-10 px-sm-0 mx-auto">
-      <%= form_with model: @order,  local:true do |f| %>
+      <%= form_with model: @order, url: orders_path, method: :post, local:true do |f| %>
+        <%= f.hidden_field :postage, :value => @postage %>
         <%= f.hidden_field :postcode, :value => @order.postcode %>
         <%= f.hidden_field :address, :value => @order.address %>
         <%= f.hidden_field :name, :value => @order.name %>
-        <%= f.hidden_field :total_payment, :value => @total_billing_amount %>
+        <%= f.hidden_field :total_payment, :value => @total_payment %>
         <%= f.hidden_field :payment_method, :value => @order.payment_method %>
         <div class="text-center mb-3"><%= f.submit "注文を確定する", class: "btn btn-success" %></div>
       <% end %>
