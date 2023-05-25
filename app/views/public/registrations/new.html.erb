@@ -1,4 +1,3 @@
-<%= render 'layouts/header' %>
 <div class='container'>
 <div class='row pt-5'>
 <div class="col-sm-12 col-md-11 col-lg-10 px-sm-0 mx-auto tr-color p-4">
@@ -7,52 +6,52 @@
 </div>
 <%= form_with model: @customer, url: customer_registration_path do |f| %>
   <%= render "public/shared/error_messages", resource: resource %>
-  <div class="form ml-2">
+  <div class="form-group">
     <table class="table table-borderless">
       <tbody>
         <tr>
           <td>名前</td>
           <td>(姓)</td>
-          <td><%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", placeholder: "令和" %></td>
+          <td><%= f.text_field :first_name, autofocus: true, placeholder: "令和", class: 'form-control' %></td>
           <td>(名)</td>
-          <td><%= f.text_field :last_name, autocomplete: "last_name", placeholder: "道子" %></td>
+          <td><%= f.text_field :last_name, placeholder: "道子", class: 'form-control' %></td>
         </tr>
         <tr>
           <td>フリガナ</td>
           <td>(セイ)</td>
-          <td><%= f.text_field :first_name_kana, autocomplete: "first_name", placeholder: "レイワ" %></td>
+          <td><%= f.text_field :first_name_kana, placeholder: "レイワ", class: 'form-control' %></td>
           <td>(メイ)</td>
-          <td><%= f.text_field :last_name_kana, autocomplete: "last_name", placeholder: "ミチコ" %></td>
+          <td><%= f.text_field :last_name_kana, placeholder: "ミチコ", class: 'form-control' %></td>
         </tr>
         <tr>
           <td>メールアドレス</td>
           <td></td>
-          <td><%= f.email_field :email, autocomplete: "email", placeholder: "sample@example.com" %></td>
+          <td><%= f.email_field :email, placeholder: "sample@example.com", class: 'form-control' %></td>
         </tr>
         <tr>
           <td>郵便番号(ハイフンなし)</td>
           <td></td>
-          <td><%= f.text_field :postcode, autocomplete: "postcode", placeholder: "0000000" %></td>
+          <td><%= f.text_field :postcode, placeholder: "0000000", class: 'form-control' %></td>
         </tr>
         <tr>
           <td>住所</td>
           <td></td>
-          <td><%= f.text_field :address, autocomplete: "address", placeholder: "東京都渋谷区代々木神園町0-0", size: 40 %></td>
+          <td colspan="3"><%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0-0", class: 'form-control' %></td>
         </tr>
         <tr>
           <td>電話番号(ハイフンなし)</td>
           <td></td>
-          <td><%= f.telephone_field :phone_number, autocomplete: "phone_number", placeholder: "0000000000" %></td>
+          <td><%= f.telephone_field :phone_number, placeholder: "0000000000" , class: 'form-control' %></td>
         </tr>
         <tr>
           <td>パスワード(６文字以上)</td>
           <td></td>
-          <td><%= f.password_field :password, autocomplete: "new-password" %></td>
+          <td><%= f.password_field :password, class: 'form-control' %></td>
         </tr>
         <tr>
           <td>パスワード(確認用)</td>
           <td></td>
-          <td><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+          <td><%= f.password_field :password_confirmation, class: 'form-control' %></td>
         </tr>
         <tr>
           <td></td>
