@@ -34,7 +34,7 @@
       <table class="new-tabel my-2">
         <tbody>
           <tr>
-            <% @items.last(4).each do |item| %>
+            <% @items.reverse.first(4).each do |item| %>
             <td>
               <%= link_to item_path(item) do %>
                 <%= image_tag item.image, size:"250x190", class:"item_image mr-2"%>
