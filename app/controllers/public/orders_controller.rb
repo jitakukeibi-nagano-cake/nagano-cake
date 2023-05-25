@@ -14,7 +14,6 @@ class Public::OrdersController < ApplicationController
      @total_quantity = @cart_items.inject(0) {|sum, item| sum + item.subtotal }
      @postage = 800
      @total_payment = @postage + @total_quantity
-    
 
      @order = Order.new(order_params)
      if params[:order][:select_address] == "0"
@@ -46,7 +45,7 @@ class Public::OrdersController < ApplicationController
         order_detail.item_id = cart_item.item_id
         order_detail.order_id = @order.id
         order_detail.quantity = cart_item.quantity
-        order_detail.price = cart_item.subtotal 
+        order_detail.price = (cart_item.item.price * 1.1).floor
         order_detail.making_status = 0
         order_detail.save
       end
@@ -73,7 +72,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method)
+    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method, :postage)
   end
 
 end
