@@ -15,7 +15,7 @@ class Public::OrdersController < ApplicationController
      @postage = 800
      @total_payment = @postage + @total_quantity
     
-     @order = Order.new
+     @order = Order.new(params[:id])
      if params[:order][:addresses] == "residence"
       @order.postcode = current_customer.postcode
       @order.address = current_customer.address

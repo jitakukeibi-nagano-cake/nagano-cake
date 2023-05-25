@@ -2,23 +2,11 @@
 <div class="container-fluid">
   <div class="row mt-5">
     <div class="offset-lg-1 col-lg-2">
-      <table class="tabel table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>ジャンル検索</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>ケーキ</td></tr>
-          <tr><td>クッキー</td></tr>
-          <tr><td>プリン</td></tr>
-          <tr><td>焼き菓子</td></tr>
-        </tbody>
-      </table>
+      <%= render 'layouts/genres' %>
     </div>
     <div class="col-lg-8">
-      <div class="greeting-image">
-        <p class="greeting text-center ">
+      <div class="background">
+        <p class="greeting text-center">
            ようこそ、ながのCAKEへ！<br>
            このサイトは、ケーキ販売のECサイトになります。<br>
            会員でない方も商品の閲覧はできますが、<br>
@@ -34,9 +22,11 @@
       <table class="new-tabel my-2">
         <tbody>
           <tr>
-            <% @items.last(4).each do |item| %>
+            <% @items.reverse.first(4).each do |item| %>
             <td>
-              <%= link_to image_tag(item.image), item_path(item), class: 'item_image mr-2', size: '250x190'%><br>
+              <%= link_to item_path(item) do %>
+                <%= image_tag item.image, size:"250x190", class:"item_image mr-2"%>
+              <% end %><br>
               <%= item.name %><br>
               ¥<%= item.with_tax_price.to_s(:delimited) %>
             </td>
