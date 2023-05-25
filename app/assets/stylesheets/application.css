@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+::placeholder {
+   font-size: 0.75em;
+   color: #aaa;
+}

@@ -15,6 +15,7 @@ class Public::OrdersController < ApplicationController
      @postage = 800
      @total_payment = @postage + @total_quantity
     
+
      @order = Order.new(order_params)
      if params[:order][:select_address] == "0"
       @order.postcode = current_customer.postcode
