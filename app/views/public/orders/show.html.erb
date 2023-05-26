@@ -7,7 +7,7 @@
         <tr><th class="table-active">注文日</th><td><%= @order.created_at.strftime('%Y/%m/%d') %></td></tr>
         <tr><th class="table-active">配送先</th><td><%= "〒#{@order.postcode}" %><br><%= @order.address %><br><%= @order.name %></td></tr>
         <tr><th class="table-active">支払い方法</th><td><%= @order.payment_method %></td></tr>
-        <tr><th class="table-active">ステータス</th><td><%= @order.status %></td></tr>
+        <tr><th class="table-active">ステータス</th><td><%= @order.status_i18n %></td></tr>
 
       </table>
     </div>
