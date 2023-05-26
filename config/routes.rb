@@ -17,8 +17,10 @@ namespace :admin do
     root to: 'homes#top'
     resources :items, only:[:index, :new, :create, :show, :edit, :update]
     resources :customers, only:[:index, :show, :edit, :update]
-    resources :orders, only:[:index, :show]
+    resources :orders, only:[:index, :show, :edit, :update]
     resources :genres, only:[:index, :edit, :create, :update]
+    resources :orders, only:[:show, :update]
+    resources :order_details, only:[:update]
 
 end
 
@@ -39,7 +41,7 @@ end
     end
     get '/orders/confirm' => 'orders#confirm'
     post '/orders/confirm' => 'orders#confirm'
-   
+
     root to: 'homes#top'
     get '/about' => 'homes#about'
   end
