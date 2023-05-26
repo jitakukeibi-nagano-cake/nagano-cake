@@ -2,8 +2,8 @@ class Public::OrdersController < ApplicationController
   include Public::HomesHelper
 
   before_action :authenticate_customer!
-
-
+  before_action :cart_items_empty
+  
   def new
     @order = Order.new
     @delivery_addresses = current_customer.delivery_addresses
@@ -74,5 +74,12 @@ class Public::OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method, :postage)
   end
-
+  
+  def cart_items_empty
+    cart_items = CartItem.where(customer_id: current_customer.id)
+    if cart_items.empty?
+      redirect_to cart_items_path
+    end 
+  end 
+  
 end
