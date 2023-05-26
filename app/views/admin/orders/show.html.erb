@@ -1,33 +1,34 @@
 <div class="container">
   <div class="row">
-    <div class="col pt-3">
+    <div class="col-sm-10">
       <h3>注文履歴詳細</h3>
     </div>
-    <table class="table table-borderless" width="300">
+    <table class="table table-bordered">
         <tr>
-          <th class="table-active">購入者</th>
+          <th class="table-active" style="width:20%">購入者</th>
           <td><%= @order.customer.first_name %><%= @order.customer.last_name %></td>
         </tr>
         <tr>
-          <th class="table-active">注文日</th>
+          <th class="table-active" style="width:20%">注文日</th>
           <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
         </tr>
         <tr>
-          <th class="table-active">配送先</th>
+          <th class="table-active" style="width:20%">配送先</th>
           <td>〒<%= @order.postcode %>
               <%= @order.address %>
               <%= @order.name %>
           </td>
         </tr>
         <tr>
-          <th class="table-active">支払方法</th>
+          <th class="table-active" style="width:20%">支払方法</th>
           <td><%= @order.payment_method %></td>
         </tr>
         <tr>
-          <th class="table-active">注文ステータス</th>
+          <th class="table-active" style="width:20%">注文ステータス</th>
           <td>
-            <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
-            <%= f.select :status, Order.statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6" %>
+            <%= form_with model: @order, url: admin_order_path, method: :patch, local: true do |f| %>
+            <%= f.select :status, Order.statuses_i18n.invert %>
+            <%= hidden_field :id, :value => @order.id %>
             <%= f.submit "更新", class: "btn btn-sm btn-success" %>
             <% end %>
           </td>
@@ -35,9 +36,9 @@
     </table>
 
       <div class="row">
-        <div class="col-9">
-        <table class="table">
-          <thead class="table-active">
+        <div class="col-sm-12">
+        <table class="table table-bordered">
+          <thead class="thead-light">
             <tr>
               <th>商品名</th>
               <th>単価(税込)</th>
@@ -46,7 +47,7 @@
               <th>製作ステータス</th>
             </tr>
           </thead>
-          <tbody class="tr-color">
+          <tbody>
             <% @order_details.each do |order_detail| %>
             <tr>
               <td><%= order_detail.item.name %></td>
@@ -54,8 +55,8 @@
               <td><%= order_detail.quantity %></td>
               <td><%= order_detail.subtotal.to_s(:delimited) %></td>
               <td>
-                <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
-                <%= f.select :status, Order.statuses_i18n.invert, {prompt: false}, class:"form-control form-control-sm col-6" %>
+                <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), method: :patch, local: true do |f| %>
+                <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
                 <%= f.submit "更新", class: "btn btn-sm btn-success" %>
                 <% end %>
               </td>
@@ -65,18 +66,18 @@
         </table>
         </div>
       </div>
-      <div class="col-3 offset-1 mt-3">
-        <table class="table">
+      <div class="col-sm-3">
+        <table class="table table-borderless">
           <tr>
-            <th class="table-active">商品合計</th>
+            <th>商品合計</th>
             <td><%= (@order.total_payment - @order.postage).to_s(:delimited) %>円</td>
           </tr>
           <tr>
-            <th class="table table-active">送料</th>
+            <th>送料</th>
             <td><%= @order.postage.to_s(:delimited) %>円</td>
           </tr>
           <tr>
-            <th class="table table-active">請求合計金額</th>
+            <th>請求合計金額</th>
             <td><%= @order.total_payment.to_s(:delimited) %>円</td>
           </tr>
         </table>

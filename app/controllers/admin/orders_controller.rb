@@ -14,7 +14,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
-    @order = Order.find(params[:order_id])
+    @order = Order.find(params[:id])
     @order_detail = OrderDetail.find(params[:id])
     @order_details = @order.order_details.all
     if @order.update(order_params)
