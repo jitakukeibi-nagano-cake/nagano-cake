@@ -36,6 +36,7 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @order.status = 0
     @order.customer_id = current_customer.id
     @postage= 800
     if @order.save
@@ -72,7 +73,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method, :postage)
+    params.require(:order).permit(:postcode, :address, :name, :total_payment, :payment_method, :postage, :status)
   end
 
   def cart_items_empty
