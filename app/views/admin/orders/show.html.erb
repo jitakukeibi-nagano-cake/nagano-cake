@@ -40,21 +40,21 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th class="table-active">商品名</th>
-              <th class="table-active">単価(税込)</th>
-              <th class="table-active">数量</th>
-              <th class="table-active">小計</th>
-              <th class="table-active">製作ステータス</th>
+              <th class="border border-dark">商品名</th>
+              <th class="border border-dark">単価(税込)</th>
+              <th class="border border-dark">数量</th>
+              <th class="border border-dark">小計</th>
+              <th class="border border-dark">製作ステータス</th>
             </tr>
           </thead>
           <tbody>
             <% @order_details.each do |order_detail| %>
             <tr>
-              <td><%= order_detail.item.name %></td>
-              <td><%= order_detail.price.to_s(:delimited) %></td>
-              <td><%= order_detail.quantity %></td>
-              <td><%= order_detail.subtotal.to_s(:delimited) %></td>
-              <td>
+              <td class="border border-dark"><%= order_detail.item.name %></td>
+              <td class="border border-dark"><%= order_detail.price.to_s(:delimited) %></td>
+              <td class="border border-dark"><%= order_detail.quantity %></td>
+              <td class="border border-dark"><%= order_detail.subtotal.to_s(:delimited) %></td>
+              <td class="border border-dark">
                 <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), method: :patch, local: true do |f| %>
                 <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
                 <%= f.submit "更新", class: "btn btn-sm btn-success" %>
