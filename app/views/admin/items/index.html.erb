@@ -1,0 +1,42 @@
+<!--ゴリ作成-->
+<!--商品一覧画面-->
+
+<div class = "container">
+    <div class = "row" >
+        <div class = "col-sm-8 px-sm-0 mb-3 offset-sm-1">
+            <h4><strong class="table-active">商品一覧</strong></h4>
+        </div>
+        <div class = "col-sm-8 px-sm-0 text-right mb-2">
+            <%= link_to new_admin_item_path, class:"btn btn-circle btn-dark" do %>
+            <span><i class="fas fa-plus"></i></span>
+            <% end %>
+        </div>
+        <table class = "table" >
+            <thead>
+                <tr>
+                    <th><strong>商品ID</strong></th>
+                    <th><strong>商品名</strong></th>
+                    <th><strong>税抜価格</strong></th>
+                    <th><strong>ジャンル</strong></th>
+                    <th><strong>ステータス</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @items.each do |item| %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= link_to item.name, admin_item_path(item.id) %></td>
+                    <td><%= item.price %></td>
+                    <td><%= item.genre.name %></td>
+                    <% if item.is_active == true %>
+                    <td><strong class = "text-success">販売中</strong></td>
+                    <% else %>
+                    <td class = "text-danger">販売停止中</td>
+                    <% end %>
+                </tr>
+            </tbody>
+            <% end %>
+        </table>
+        <%= paginate @item %>
+    </div>
+</div>

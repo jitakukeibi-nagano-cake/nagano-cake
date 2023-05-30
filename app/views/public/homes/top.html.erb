@@ -1,0 +1,43 @@
+
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="offset-lg-1 col-lg-2">
+      <%= render 'layouts/genres' %>
+    </div>
+    <div class="col-lg-8">
+      <div class="background">
+        <p class="greeting text-center">
+           ようこそ、ながのCAKEへ！<br>
+           このサイトは、ケーキ販売のECサイトになります。<br>
+           会員でない方も商品の閲覧はできますが、<br>
+           購入には会員登録が必要になります。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-8 my-3">
+      <h3 calss="new-items">新着商品</h3>
+      <table class="new-tabel my-2">
+        <tbody>
+          <tr>
+            <% @items.reverse.first(4).each do |item| %>
+            <td>
+              <%= link_to item_path(item) do %>
+                <%= image_tag item.image, size:"250x190", class:"item_image mr-2"%>
+              <% end %><br>
+              <%= item.name %><br>
+              ¥<%= item.with_tax_price.to_s(:delimited) %>
+            </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+      <div class="to-all-items text-right">
+        <%= link_to "全ての商品を見る", items_path %>
+      </div>
+    </div>
+
+  </div>
+</div>

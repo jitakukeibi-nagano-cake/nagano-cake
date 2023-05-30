@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 mx-auto">
+      <h1 class="mt-3">商品一覧</h1>
+      <p>全<%= @items.total_count %>件 中<%= @items.count %>件</p>
+      <div class="d-flex flex-wrap mx-auto justify-content-center">
+      <% @items.each do |item| %>
+        <span class="ml-3">
+            <div class="item-container">
+  <%= link_to item_path(item.id) do %>
+  <%= image_tag item.image, size: '190x120' %>
+  <% end %>
+  <p>
+    <%= link_to item_path(item.id), class: "btn-link text-dark" do %>
+      <%= item.name %>
+    <% end %>
+  </p>
+  <% if item.is_active == true %>
+    <p><%= item.price.to_s(:delimited) %> 円</p>
+  <% elsif item.is_active == false %>
+    <p>売り切れ中</p>
+  <% end %>
+</div>
+        </span>
+      <% end %>
+      </div>
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>

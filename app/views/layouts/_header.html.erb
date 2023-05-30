@@ -1,0 +1,100 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-info">
+    <div class="container-md">
+      <div class="mx-0">
+        <h1><%= link_to image_tag('dog1.png', size: '125x125'), root_path %></h1>
+      </div>
+      
+      <h1 class="text-center mt-0" style="font-family: 'Sacramento', cursive;">Nagano Cake</h1>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          
+          <!--顧客ログイン-->
+        <% if customer_signed_in? %>
+        <div class="mr-8 mt-2">
+          <i class="fas fa-child"></i>ようこそ、<%= current_customer.first_name %><%= current_customer.last_name %>様<i class="fas fa-child"></i>
+          </div>
+          <li>
+            <%= link_to customers_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-user-check"></i>マイページ
+            <% end %>
+          </li>
+          <li>
+            <%= link_to items_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-cookie-bite"></i> 商品一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to cart_items_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-shopping-cart"></i>カート
+            <% end %>
+          </li>
+          <li>
+            <%= link_to  destroy_customer_session_path, method: :delete, class:'nav-link text-dark' do %>
+            <i class="fas fa-user-slash"></i>ログアウト
+            <% end %>
+          </li>
+        
+        <!--管理者ログイン-->
+        <% elsif admin_signed_in? %>
+          <div class="mr-8 mt-2">
+              <i class="fas fa-user-astronaut"></i>管理者ログイン<i class="fas fa-user-astronaut"></i>
+          </div>
+          <li>
+            <%= link_to admin_items_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-list-ol"></i>商品一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_customers_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-users"></i>会員一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to  admin_root_path, class:'nav-link text-dark' do %>
+            <i class="fab fa-opencart"></i>注文履歴一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to admin_genres_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-tags"></i>ジャンル一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_admin_session_path, method: :delete, class:'nav-link text-dark' do %>
+             <i class="fas fa-user-slash"></i>ログアウト
+            <% end %>
+          </li>
+          
+          <!--未ログイン-->
+        <% else %>
+        <div class="mr-8 mt-2">
+          <i class="far fa-smile"></i>ようこそ、ゲスト様<i class="far fa-smile"></i>
+        </div>
+          <li>
+            <%= link_to about_path, class:'nav-link text-dark' do  %>
+            <i class="fas fa-wifi"></i>About
+            <% end %>
+          </li>
+          <li>
+            <%= link_to items_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-list-ol"></i>商品一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to  new_customer_registration_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-user-plus"></i>新規登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_customer_session_path, class:'nav-link text-dark' do %>
+            <i class="fas fa-user-ninja"></i>ログイン
+            <% end %>
+          </li>
+        <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

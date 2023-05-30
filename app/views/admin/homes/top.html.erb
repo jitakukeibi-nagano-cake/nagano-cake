@@ -1,0 +1,95 @@
+<!--ゴリ作成-->
+    
+<% if @params.nil? %>
+    
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1 mx-auto mt-3">
+      <h3>注文履歴一覧</h3>
+       <table class="table">
+        <thead>
+          <th class="table-active">購入日時</th>
+          <th class="table-active">購入者</th>
+          <th class="table-active">注文個数</th>
+          <th class="table-active">注文ステータス</th>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+           <tr>
+              <!--購入日時-->
+              <td class = "align-middle link">
+               <%= link_to admin_order_path(order),data: {"turbolinks"=>false} do %>
+                 <%= order.created_at.strftime("%Y-%m-%d %H:%M:%S")%>
+               <% end %>
+              </td>
+              <!--購入者-->
+              <td class = "align-middle">
+               <%= order.customer.first_name + order.customer.last_name %>
+              </td>
+              <!--注文個数-->
+              <td class = "align-middle">
+               <% @total_quantity = 0 %>
+               <% order.order_details.each do |order_detail| %>
+                 <% @total_quantity += order_detail.quantity %>
+               <% end %>
+               <%= @total_quantity %>
+              </td>
+              <!--注文ステータス-->
+              <td class = "align-middle">
+               <%= order.status_i18n %>
+              </td>
+           </tr>
+               <% end %>
+          </tbody>
+       </table>
+     <%= paginate @orders %>
+   </div>
+  </div>
+ </div>
+ 
+ <% else %>
+ 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 px-sm-0 mx-auto">
+      <h2>注文履歴一覧</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="table-active">購入日時</th>
+            <th class="table-active">購入者</th>
+            <th class="table-active">注文個数</th>
+            <th class="table-active">注文ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% order.each do |order| %>
+          <tr>
+            <td class="align-middle link">
+              <%= link_to admin_order_path(order) do %>
+                  <%= order.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                <% end %>
+            </td>
+            <td class="align-middle">
+                <%= order.customer.last_name + order.customer.first_name %>
+            </td>
+            <td class="align-middle">
+              <% @total_quantity = 0 %>
+              <% order.order_items.each do |order_item| %>
+                <% @total_quantity += order_item.quantity %>
+              <% end %>
+              <%= @total_quantity %>
+            </td>
+            <td class="align-middle">
+              <%= order.status_i18n %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @order %>
+    </div>
+  </div>
+</div>
+
+<% end %>

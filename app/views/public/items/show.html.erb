@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="item_detail row my-5 py-5">
+    <div class="col-lg-2">
+      <%= render 'layouts/genres' %>
+    </div>
+    <div class="col-lg-4">
+      <%= image_tag @item.image, size: "250x190" %>
+    </div>
+    <div class="col-md-5">
+      <h3 class="item_name py-2"><%= @item.name %></h3>
+      <p class="item_introduction py-2"><%= @item.introduction %></p>
+      <h3 class="item_price pt-2">¥ <%= @item.with_tax_price.to_s(:delimited) %> (税込)</h3>
+      <%= form_with model: @cart_item do |f| %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.select :quantity, *[1..10], { include_blank: '個数選択'}, { class: "form-control-sm", required: true } %>
+        <%= f.submit "カートに入れる", class:"btn btn-sm btn-success ml-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>
